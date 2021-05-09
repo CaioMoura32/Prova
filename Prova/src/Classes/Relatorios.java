@@ -18,10 +18,10 @@ public class Relatorios {
     public void exibirRelatorioProduto(Scanner ler, List <Produto> produto){
         System.out.println("-** Relatorio de Produtos **-");
         System.out.println("----------------------------------------");
-        System.out.printf("%-10.10s\t%-12.12s\t%-20.20s\t%-15.15s\n",
+        System.out.printf("|%-10.10s|\t|%-12.12s|\t|%-20.20s|\t|%-15.15s|\n",
         "Código", "Produto", "Valor R$", "Estoque");
         for (Produto p : produto) {
-            System.out.printf("%-10.10s\t%-12.12s\t%-20.20s\t%-15.15s\n",
+            System.out.printf("|%-10.10s|\t|%-12.12s|\t|%-20.20s|\t|%-15.15s|\n",
             p.getCodigo(), p.getNome(), p.getValor(), p.getQuantidadeEstoque());
             
         }
@@ -47,18 +47,18 @@ public class Relatorios {
         v.getDataProdutos().plusDays(-1).isBefore(LocalDate.parse(dataFinal, fd)))
         .collect(Collectors.toList());
         
-             System.out.printf("%-10.10s\t%-12.12s\t%-10.10s\t%-20.20s\t%-15.15s\n",
+             System.out.printf("|%-10.10s|\t|%-12.12s|\t|%-10.10s|\t|%-20.20s|\t|%-15.15s|\n",
             "Data", "Produto", "Quantidade", "Valor", "Valor Total R$" );
            
             vendasFiltradas.forEach(v -> 
-            System.out.printf("%-10.10s\t%-12.12s\t%-10.10s\t%-20.20s\t%-15.15s\n",
+            System.out.printf("|%-10.10s|\t|%-12.12s|\t|%-10.10s|\t|%-20.20s|\t|%-15.15s|\n",
             v.getDataProdutos(), v.getProduto().getNome(), v.getQuantidadeVendida(), v.getProduto().getValor(), v.getValorTotal()));
             
         }
         public void exibirRelatorioConsolidade(Scanner ler, List<Venda> venda){
 
             DateTimeFormatter fd = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+             
             System.out.println("\n-** Relatorio Consolidado **-");
             System.out.println("-------------");
             System.out.printf("Data Inicial: ");
@@ -71,12 +71,16 @@ public class Relatorios {
             v.getDataProdutos().plusDays(-1).isBefore(LocalDate.parse(dataFinal, fd)))
             .collect(Collectors.toList());
 
-            System.out.printf("\n%-10.10s\t%-12.12s\t%-10.10s\n",
+            System.out.printf("|\n%-10.10s|\t|%-12.12s|\t|%-10.10s|\n",
             "data","Quantidade Vendida","Total Vendido");
+
+            DoubleSummaryStatistics TotalVendido = vendasFiltradas.stream()
+            .collect(Collectors.summarizingDouble(v -> v.getValorTotal()));
             
             vendasFiltradas.forEach(v -> 
-            System.out.printf("%-10.10s\t%-12.12s\t%-10.10s\n",
+            System.out.printf("|%-10.10s|\t|%-12.12s|\t|%-10.10s|\n",
             v.getDataProdutos(),v.getSomaTotalVendido(),v.getValorTotal()));
+            System.out.printf("Valor maximo %.2f ", TotalVendido.getMax());
 
         }
     }

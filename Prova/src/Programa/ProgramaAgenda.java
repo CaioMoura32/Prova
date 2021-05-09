@@ -171,12 +171,13 @@ public class ProgramaAgenda {
                             achei = true;
                             p.removerQuantidade(quantidadeVendida);
                             venda.add(new Venda(quantidadeVendida, LocalDate.parse(dataHoje, fd),p));
+                            System.out.println("\nVenda Realizada com sucesso!");
                             break;                            
-                    } if (achei == false){
-                        System.out.println("\nProduto não encontrado!! \nVoltando ao menu...\n");
-                        break;
-                    }
-                    
+                    } 
+                }
+                if (achei == false){
+                    System.out.println("\nProduto não encontrado!! \nVoltando ao menu...\n");
+                    break;
                 }
                 break;
                 
